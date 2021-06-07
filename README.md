@@ -61,9 +61,51 @@ This process can also be defined in a normal YAML file like this: https://docs.g
 
 ## Github Actions Pipelines
 
-As stated in the Docker section, a filepath of `.github/workflows` is needed in order to define Github Actions pipelines.
+As stated in the Docker section, a filepath of `.github/workflows` is needed in order to define Github Actions pipelines. These pipelines can be defined through Terraform files or through YAML files.
+
+### TerraformApply.yml
+```
+name: Terraform Apply
+
+on: [push]
+
+jobs:
+  terraform_apply:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
 
 
+    - name: Install Terraform
+      env:
+        TERRAFORM_VERSION: "0.12.15"
+      run: |
+        tf_version=$TERRAFORM_VERSION
+        wget https://releases.hashicorp.com/terraform/"$tf_version"/terraform_"$tf_version"_linux_amd64.zip
+        unzip terraform_"$tf_version"_linux_amd64.zip
+        sudo mv terraform /usr/local/bin/
+    - name: Verify Terraform version
+      run: terraform --version
+
+    - name: Terraform init
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: terraform init -input=false
+
+    - name: Terraform validation
+      run: terraform validate
+
+    - name: Terraform apply
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: terraform apply -auto-approve -input=false
+```
+
+This `TerraformApply.yml` is a simple example of getting Terraform installed in the pipeline, defining that `on: [push]` (on a code push), the pipeline should be ran. Note that this pipeline that has been created must also have a `main.tf` file somewhere in the repository in order to build successfully (can be an empty file).
+
+Here is a simple quickstart guide if you are not using Terraform to define pipelines: https://docs.github.com/en/actions/quickstart
 
 
 You can find more documentation and helpful examples all in this Github repo: https://github.com/dflook/terraform-github-actions
