@@ -16,7 +16,7 @@
 
 ## Analytics
 
-## cloud
+## Cloud
 
 # Corban
 
