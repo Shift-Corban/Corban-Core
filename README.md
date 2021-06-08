@@ -50,9 +50,50 @@ This process can also be defined in a normal YAML file like this: https://docs.g
 
 
 ## NuGet Package Pushing
+Nuget packages can be pushed/published using Github Actions as well. Through a YAML file, details about the package and how it is pushed can be defined in the `.github/workflows` folder.
 
+### Publish.yml
+```
+name: NuGet Generation
 
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [closed]
+    branches:
+      - master
 
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    name: Update NuGet package
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v1
+
+      - name: Setup .NET Core @ Latest
+        uses: actions/setup-dotnet@v1
+        with:
+          source-url: https://nuget.pkg.github.com/<organization>/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}        
+
+      - name: Build solution and generate NuGet package
+        run: |  
+          cd <project>
+          dotnet pack -c Release -o out  
+
+      - name: Push generated package to GitHub registry
+        run: dotnet nuget push ./<project>/out/*.nupkg --skip-duplicate --no-symbols true
+```
+This is an example of a NuGet publish on each push made to the repository.
+
+Link where example code was found: https://stackoverflow.com/questions/57889719/how-to-push-nuget-package-in-github-actions
+
+There is also a Github Action in the Github Marketplace that also supports NuGet building, packaging, and publishing. This can be found here: https://github.com/marketplace/actions/publish-nuget
 
 ## Static Website Hosting through Github Pages
 
