@@ -9,6 +9,9 @@
 ## Security Scanning
 
 ## Secret Management
+GitHub manages secrets within each repositories settings. You can easily add multiple secrets through the UI.
+
+![alt text](https://miro.medium.com/max/700/1*CcuLAS9gezSz-6d6Lydw3Q.png)
 
 ## Integrations
 
