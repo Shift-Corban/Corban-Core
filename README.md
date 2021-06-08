@@ -96,8 +96,11 @@ Link where example code was found: https://stackoverflow.com/questions/57889719/
 There is also a Github Action in the Github Marketplace that also supports NuGet building, packaging, and publishing. This can be found here: https://github.com/marketplace/actions/publish-nuget
 
 ## Static Website Hosting through Github Pages
+Static websites can also be hosted on GitHub with GitHub Pages. You can host a website on GitHub's `github.io` domain or a custom domain.
 
+To host your website code on GitHub Pages, it is as simple as going to the settings within your repository and selecting the "Pages" option in the menu.
 
+Link to getting started with GitHub Pages: https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site
 
 
 ## Github Actions Pipelines
