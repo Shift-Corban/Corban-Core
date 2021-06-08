@@ -119,6 +119,10 @@ Static websites can also be hosted on GitHub with GitHub Pages. You can host a w
 
 To host your website code on GitHub Pages, it is as simple as going to the settings within your repository and selecting the "Pages" option in the menu.
 
+![alt text](https://docs.github.com/assets/images/help/repository/repo-actions-settings.png)
+
+![alt text](https://docs.github.com/assets/images/help/pages/pages-tab.png)
+
 Link to getting started with GitHub Pages: https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site
 
 
@@ -167,6 +171,8 @@ jobs:
 ```
 
 This `TerraformApply.yml` is a simple example of getting Terraform installed in the pipeline, defining that `on: [push]` (on a code push), the pipeline should be ran. Note that this pipeline that has been created must also have a `main.tf` file somewhere in the repository in order to build successfully (can be an empty file).
+
+![alt text](https://i0.wp.com/wahlnetwork.com/wp-content/uploads/2020/05/image-5.png?resize=1070%2C814&ssl=1)
 
 Here is a simple quickstart guide if you are not using Terraform to define pipelines: https://docs.github.com/en/actions/quickstart
 
